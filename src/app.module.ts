@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ArrendatarioModule } from './modules/Arrendatario/Arrendatario.module';
+import { ArrendatarioModule } from './modules/Arrendatario/arrendatario.module';
 import { CoPropietarioModule } from './modules/Co-propietario/Co-propietario.module';
 
 @Module({

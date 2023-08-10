@@ -1,5 +1,5 @@
 export class ArrendatarioEntity {
-  id: number;
+  id: string;
   name: string;
-  apartment: number;
+  apartment: string;
 }

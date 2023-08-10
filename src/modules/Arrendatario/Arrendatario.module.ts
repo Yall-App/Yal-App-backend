@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ArrendatarioController } from './Arrendatario.controller';
-import { ArrendatarioService } from './Arrendatario.service';
+import { ArrendatarioController } from './arrendatario.controller';
+import { ArrendatarioService } from './arrendatario.service';
 
 @Module({
   imports: [], // Le queremos dar a este módulo alguna funcionalidad externa.
