@@ -3,7 +3,7 @@ import { ArrendatarioEntity } from './entities/Arrendatario.entity';
 import {
   CreateArrendatarioDto,
   UpdateArrendatarioDto,
-} from 'src/dtos/arrendatarios.dto';
+} from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
 import { v4 } from 'uuid';
 
 @Injectable()
@@ -15,16 +15,25 @@ export class ArrendatarioService {
         id: '1',
         name: 'Harry Potter',
         apartment: '3',
+        phoneNumber: 351351351,
+        document: 41414141,
+        email: 'asd@gmail',
       },
       {
         id: '2',
         name: 'Franquito',
         apartment: '5',
+        phoneNumber: 351351353,
+        document: 41414142,
+        email: 'fermin@gmail',
       },
       {
         id: '3',
         name: 'Fermín',
         apartment: '1',
+        phoneNumber: 351351352,
+        document: 41414143,
+        email: 'fermin@gmail',
       },
     ];
   }
@@ -40,6 +49,9 @@ export class ArrendatarioService {
       id: v4(),
       name: createArrendatarioDto.name,
       apartment: createArrendatarioDto.apartment,
+      document: createArrendatarioDto.document,
+      phoneNumber: createArrendatarioDto.phoneNumber,
+      email: createArrendatarioDto.email,
     };
     this.list.push(newArrendatario);
     return newArrendatario;
