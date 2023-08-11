@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ArrendatarioEntity } from './entities/Arrendatario.entity';
-import { CreateArrendatarioDto } from 'src/dtos/arrendatarios.dto';
+import {
+  CreateArrendatarioDto,
+  UpdateArrendatarioDto,
+} from 'src/dtos/arrendatarios.dto';
 import { v4 } from 'uuid';
 
 @Injectable()
@@ -41,6 +44,23 @@ export class ArrendatarioService {
     this.list.push(newArrendatario);
     return newArrendatario;
   }
-  // updateArrendatario() {}
+
+  getArrendatarioById(id: string) {
+    return this.list.find((arrendatario) => arrendatario.id === id);
+  }
+  updateArrendatario(
+    id: string,
+    updateArrendatarioFields: UpdateArrendatarioDto,
+  ): ArrendatarioEntity {
+    const arrendatario = this.getArrendatarioById(id);
+    const newArrendatario = Object.assign(
+      arrendatario,
+      updateArrendatarioFields,
+    );
+    this.list = this.list.map((arrendatario) =>
+      arrendatario.id === id ? newArrendatario : arrendatario,
+    );
+    return newArrendatario;
+  }
   // deleteArrendatario() {}
 }

@@ -1,7 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
 import { ArrendatarioEntity } from './entities/Arrendatario.entity';
-import { CreateArrendatarioDto } from 'src/dtos/arrendatarios.dto';
+import {
+  CreateArrendatarioDto,
+  UpdateArrendatarioDto,
+} from 'src/dtos/arrendatarios.dto';
 
 @Controller('arrendatario')
 export class ArrendatarioController {
@@ -16,5 +19,14 @@ export class ArrendatarioController {
   @Post()
   async createArrendatario(@Body() arrendatario: CreateArrendatarioDto) {
     await this.arrendatarioService.createArrendatario(arrendatario);
+    return 'Arrendatario creado con éxito';
+  }
+  @Patch(':id')
+  updateArrendatario(
+    @Param('id') id: string,
+    @Body() updateArrendatarioFields: UpdateArrendatarioDto,
+  ) {
+    this.arrendatarioService.updateArrendatario(id, updateArrendatarioFields);
+    return 'Arrendatario actualizado con éxito';
   }
 }
