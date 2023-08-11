@@ -61,6 +61,10 @@ export class ArrendatarioService {
     return this.list.find((arrendatario) => arrendatario.id === id);
   }
 
+  async findByEmail(email: string): Promise<ArrendatarioEntity[]> {
+    return this.list.filter((e: ArrendatarioEntity) => e.email === email);
+  }
+
   async updateArrendatario(
     id: string,
     updateArrendatarioFields: UpdateArrendatarioDto,
