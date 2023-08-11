@@ -12,7 +12,7 @@ import { ArrendatarioEntity } from './entities/Arrendatario.entity';
 import {
   CreateArrendatarioDto,
   UpdateArrendatarioDto,
-} from 'src/dtos/arrendatarios.dto';
+} from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
 
 @Controller('arrendatario')
 export class ArrendatarioController {
