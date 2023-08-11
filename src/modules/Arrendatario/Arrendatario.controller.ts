@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
 import { ArrendatarioEntity } from './entities/Arrendatario.entity';
@@ -19,9 +20,10 @@ export class ArrendatarioController {
   constructor(private arrendatarioService: ArrendatarioService) {}
 
   @Get()
-  async findAll(): Promise<ArrendatarioEntity[]> {
-    const arrendatarios: ArrendatarioEntity[] =
-      await this.arrendatarioService.findAllArrendatarios();
+  async findAll(@Query('email') email: string): Promise<ArrendatarioEntity[]> {
+    const arrendatarios: ArrendatarioEntity[] = email
+      ? await this.arrendatarioService.findByEmail(email)
+      : await this.arrendatarioService.findAllArrendatarios();
     return arrendatarios;
   }
 
