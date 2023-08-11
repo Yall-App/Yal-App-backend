@@ -16,11 +16,20 @@ export class ArrendatarioController {
       await this.arrendatarioService.findAllArrendatarios();
     return arrendatarios;
   }
+
+  @Get(':id')
+  async findById(@Param('id') id: string): Promise<ArrendatarioEntity> {
+    const arrendatario: ArrendatarioEntity =
+      await this.arrendatarioService.getArrendatarioById(id);
+    return arrendatario;
+  }
+
   @Post()
   async createArrendatario(@Body() arrendatario: CreateArrendatarioDto) {
     await this.arrendatarioService.createArrendatario(arrendatario);
     return 'Arrendatario creado con éxito';
   }
+
   @Patch(':id')
   updateArrendatario(
     @Param('id') id: string,

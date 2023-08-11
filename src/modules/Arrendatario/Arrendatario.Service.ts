@@ -45,9 +45,10 @@ export class ArrendatarioService {
     return newArrendatario;
   }
 
-  getArrendatarioById(id: string) {
+  async getArrendatarioById(id: string) {
     return this.list.find((arrendatario) => arrendatario.id === id);
   }
+
   updateArrendatario(
     id: string,
     updateArrendatarioFields: UpdateArrendatarioDto,
@@ -62,5 +63,6 @@ export class ArrendatarioService {
     );
     return newArrendatario;
   }
+
   // deleteArrendatario() {}
 }
