@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
 import { ArrendatarioEntity } from './entities/Arrendatario.entity';
 import {
@@ -37,5 +45,11 @@ export class ArrendatarioController {
   ) {
     this.arrendatarioService.updateArrendatario(id, updateArrendatarioFields);
     return 'Arrendatario actualizado con éxito';
+  }
+
+  @Delete(':id')
+  async deleteArrendatario(@Param('id') id: string) {
+    await this.arrendatarioService.deleteArrendatario(id);
+    return 'Arrendatario eliminado con éxito';
   }
 }

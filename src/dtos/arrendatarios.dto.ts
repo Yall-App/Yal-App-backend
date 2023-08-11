@@ -4,6 +4,6 @@ export class CreateArrendatarioDto {
 }
 
 export class UpdateArrendatarioDto {
-  name: string;
-  apartment: string;
+  name?: string;
+  apartment?: string;
 }

@@ -49,20 +49,19 @@ export class ArrendatarioService {
     return this.list.find((arrendatario) => arrendatario.id === id);
   }
 
-  updateArrendatario(
+  async updateArrendatario(
     id: string,
     updateArrendatarioFields: UpdateArrendatarioDto,
-  ): ArrendatarioEntity {
-    const arrendatario = this.getArrendatarioById(id);
-    const newArrendatario = Object.assign(
+  ) {
+    const arrendatario: ArrendatarioEntity = await this.getArrendatarioById(id);
+    const newArrendatario: ArrendatarioEntity = Object.assign(
       arrendatario,
       updateArrendatarioFields,
     );
-    this.list = this.list.map((arrendatario) =>
-      arrendatario.id === id ? newArrendatario : arrendatario,
-    );
-    return newArrendatario;
+    this.list = this.list.map((e) => (e.id === id ? newArrendatario : e));
   }
 
-  // deleteArrendatario() {}
+  async deleteArrendatario(id: string) {
+    this.list = this.list.filter((arrendatario) => arrendatario.id != id);
+  }
 }
