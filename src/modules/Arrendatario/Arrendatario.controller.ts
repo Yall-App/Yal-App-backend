@@ -9,7 +9,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
-import { Arrendatario } from './entities/Arrendatario.entity';
 import {
   CreateArrendatarioDto,
   UpdateArrendatarioDto,
@@ -20,38 +19,36 @@ export class ArrendatarioController {
   constructor(private arrendatarioService: ArrendatarioService) {}
 
   @Get()
-  async findAll(@Query('email') email: string): Promise<Arrendatario[]> {
-    const arrendatarios: Arrendatario[] = email
-      ? await this.arrendatarioService.findByEmail(email)
-      : await this.arrendatarioService.findAllArrendatarios();
-    return arrendatarios;
+  async findAll(@Query('email') email: string) {
+    const result = email
+      ? await this.arrendatarioService.getArrByEmail(email)
+      : await this.arrendatarioService.getArr();
+    return result;
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<Arrendatario> {
-    const arrendatario: Arrendatario =
-      await this.arrendatarioService.getArrendatarioById(id);
-    return arrendatario;
+  async findById(@Param('id') id: string) {
+    return await this.arrendatarioService.getArrById(id);
   }
 
   @Post()
   async createArrendatario(@Body() arrendatario: CreateArrendatarioDto) {
-    await this.arrendatarioService.createArrendatario(arrendatario);
-    return 'Arrendatario creado con éxito';
+    return await this.arrendatarioService.createArr(arrendatario);
   }
 
   @Patch(':id')
-  updateArrendatario(
+  async updateArrendatario(
     @Param('id') id: string,
     @Body() updateArrendatarioFields: UpdateArrendatarioDto,
   ) {
-    this.arrendatarioService.updateArrendatario(id, updateArrendatarioFields);
-    return 'Arrendatario actualizado con éxito';
+    return await this.arrendatarioService.updateArr(
+      id,
+      updateArrendatarioFields,
+    );
   }
 
   @Delete(':id')
   async deleteArrendatario(@Param('id') id: string) {
-    await this.arrendatarioService.deleteArrendatario(id);
-    return 'Arrendatario eliminado con éxito';
+    return await this.arrendatarioService.deleteArr(id);
   }
 }
