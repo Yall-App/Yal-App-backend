@@ -1,51 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { ArrendatarioEntity } from './entities/Arrendatario.entity';
+import { Arrendatario } from './entities/Arrendatario.entity';
 import {
   CreateArrendatarioDto,
   UpdateArrendatarioDto,
 } from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
 import { v4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ArrendatarioService {
-  list: ArrendatarioEntity[];
-  constructor() {
-    this.list = [
-      {
-        id: '1',
-        name: 'Harry Potter',
-        apartment: '3',
-        phoneNumber: 351351351,
-        document: 41414141,
-        email: 'asd@gmail',
-      },
-      {
-        id: '2',
-        name: 'Franquito',
-        apartment: '5',
-        phoneNumber: 351351353,
-        document: 41414142,
-        email: 'fermin@gmail',
-      },
-      {
-        id: '3',
-        name: 'Fermín',
-        apartment: '1',
-        phoneNumber: 351351352,
-        document: 41414143,
-        email: 'fermin@gmail',
-      },
-    ];
-  }
+  list: Arrendatario[];
+  constructor(
+    @InjectRepository(Arrendatario)
+    private arrRepository: Repository<Arrendatario>,
+  ) {}
 
-  async findAllArrendatarios(): Promise<ArrendatarioEntity[]> {
+  async findAllArrendatarios(): Promise<Arrendatario[]> {
     return this.list;
   }
 
   async createArrendatario(
     createArrendatarioDto: CreateArrendatarioDto,
-  ): Promise<ArrendatarioEntity> {
-    const newArrendatario: ArrendatarioEntity = {
+  ): Promise<Arrendatario> {
+    const newArrendatario: Arrendatario = {
       id: v4(),
       name: createArrendatarioDto.name,
       apartment: createArrendatarioDto.apartment,
@@ -61,16 +39,16 @@ export class ArrendatarioService {
     return this.list.find((arrendatario) => arrendatario.id === id);
   }
 
-  async findByEmail(email: string): Promise<ArrendatarioEntity[]> {
-    return this.list.filter((e: ArrendatarioEntity) => e.email === email);
+  async findByEmail(email: string): Promise<Arrendatario[]> {
+    return this.list.filter((e: Arrendatario) => e.email === email);
   }
 
   async updateArrendatario(
     id: string,
     updateArrendatarioFields: UpdateArrendatarioDto,
   ) {
-    const arrendatario: ArrendatarioEntity = await this.getArrendatarioById(id);
-    const newArrendatario: ArrendatarioEntity = Object.assign(
+    const arrendatario: Arrendatario = await this.getArrendatarioById(id);
+    const newArrendatario: Arrendatario = Object.assign(
       arrendatario,
       updateArrendatarioFields,
     );
