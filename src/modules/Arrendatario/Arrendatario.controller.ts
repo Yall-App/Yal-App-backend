@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
-import { ArrendatarioEntity } from './entities/Arrendatario.entity';
+import { Arrendatario } from './entities/Arrendatario.entity';
 import {
   CreateArrendatarioDto,
   UpdateArrendatarioDto,
@@ -20,16 +20,16 @@ export class ArrendatarioController {
   constructor(private arrendatarioService: ArrendatarioService) {}
 
   @Get()
-  async findAll(@Query('email') email: string): Promise<ArrendatarioEntity[]> {
-    const arrendatarios: ArrendatarioEntity[] = email
+  async findAll(@Query('email') email: string): Promise<Arrendatario[]> {
+    const arrendatarios: Arrendatario[] = email
       ? await this.arrendatarioService.findByEmail(email)
       : await this.arrendatarioService.findAllArrendatarios();
     return arrendatarios;
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<ArrendatarioEntity> {
-    const arrendatario: ArrendatarioEntity =
+  async findById(@Param('id') id: string): Promise<Arrendatario> {
+    const arrendatario: Arrendatario =
       await this.arrendatarioService.getArrendatarioById(id);
     return arrendatario;
   }
