@@ -26,9 +26,9 @@ export class CreateArrendatarioDto {
   @IsNotEmpty()
   email: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  phoneNumber: number;
+  // @IsNumber()
+  // @IsNotEmpty()
+  // phoneNumber: number;
 }
 
 export class UpdateArrendatarioDto {

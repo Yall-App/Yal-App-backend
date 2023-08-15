@@ -7,12 +7,16 @@ export class Arrendatario {
 
   @Column()
   name: string;
+
   @Column()
   apartment: string;
+
   @Column()
   document: number;
+
   @Column()
   email: string;
-  @Column()
-  phoneNumber: number;
+
+  // @Column()
+  // phoneNumber: number;
 }
