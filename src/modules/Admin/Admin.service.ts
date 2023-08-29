@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Admin } from './entities/Admin.entity';
-import { CreateAdminDto, UpdateAdminDto } from './dtos/CreateAdmin.dto';
+import { CreateAdminDto } from './dtos/CreateAdmin.dto';
+import { UpdateAdminDto } from './dtos/UpdateAdmin.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -11,7 +12,7 @@ export class AdminService {
     private adminRepository: Repository<Admin>,
   ) {}
 
-  async findAll(): Promise<Admin[]> {
+  async findAll() {
     return await this.adminRepository.find();
   }
 
@@ -68,7 +69,7 @@ export class AdminService {
     return result;
   }
 
-  async deleted(id: string) {
+  async delete(id: string) {
     const result = await this.adminRepository.delete({ id });
 
     if (result.affected === 0) {
