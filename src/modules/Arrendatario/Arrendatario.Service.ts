@@ -9,7 +9,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ArrendatarioService {
-  list: Arrendatario[];
   constructor(
     @InjectRepository(Arrendatario)
     private arrRepository: Repository<Arrendatario>,
