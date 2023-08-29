@@ -9,10 +9,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ArrendatarioService } from './arrendatario.service';
-import {
-  CreateArrendatarioDto,
-  UpdateArrendatarioDto,
-} from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
+import { CreateArrendatarioDto } from 'src/modules/Arrendatario/dtos/CreateArrendatario.dto';
+import { UpdateArrendatarioDto } from 'src/modules/Arrendatario/dtos/UpdateArrendatario.dto';
 
 @Controller('arrendatario')
 export class ArrendatarioController {

@@ -9,7 +9,8 @@ import {
   Patch,
 } from '@nestjs/common';
 import { AdminService } from './Admin.service';
-import { CreateAdminDto, UpdateAdminDto } from './dtos/CreateAdmin.dto';
+import { CreateAdminDto } from './dtos/CreateAdmin.dto';
+import { UpdateAdminDto } from './dtos/UpdateAdmin.dto';
 
 @Controller('admin')
 export class AdminController {

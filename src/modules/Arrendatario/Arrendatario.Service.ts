@@ -1,9 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Arrendatario } from './entities/Arrendatario.entity';
-import {
-  CreateArrendatarioDto,
-  UpdateArrendatarioDto,
-} from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
+import { CreateArrendatarioDto } from 'src/modules/Arrendatario/dtos/CreateArrendatario.dto';
+import { UpdateArrendatarioDto } from 'src/modules/Arrendatario/dtos/UpdateArrendatario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
