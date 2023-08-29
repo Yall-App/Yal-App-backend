@@ -11,7 +11,7 @@ export class AdminService {
     private adminRepository: Repository<Admin>,
   ) {}
 
-  async findAll(): Promise<Admin[]> {
+  async findAll() {
     return await this.adminRepository.find();
   }
 
