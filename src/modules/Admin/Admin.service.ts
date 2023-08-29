@@ -69,7 +69,7 @@ export class AdminService {
     return result;
   }
 
-  async deleted(id: string) {
+  async delete(id: string) {
     const result = await this.adminRepository.delete({ id });
 
     if (result.affected === 0) {

@@ -10,4 +10,4 @@ import { ApartmentController } from './Apartment.controller';
   controllers: [ApartmentController],
   exports: [],
 })
-export class AdminModule {}
+export class ApartmentModule {}

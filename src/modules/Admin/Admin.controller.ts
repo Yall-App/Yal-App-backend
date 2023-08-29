@@ -30,8 +30,8 @@ export class AdminController {
   }
 
   @Post()
-  async create(@Body() CreateAdminDto: CreateAdminDto) {
-    return await this.AdminService.create(CreateAdminDto);
+  async create(@Body() CreateAdminFields: CreateAdminDto) {
+    return await this.AdminService.create(CreateAdminFields);
   }
 
   @Patch(':id')
@@ -43,7 +43,7 @@ export class AdminController {
   }
 
   @Delete(':id')
-  async deleted(@Param('id') id: string) {
-    return await this.AdminService.deleted(id);
+  async delete(@Param('id') id: string) {
+    return await this.AdminService.delete(id);
   }
 }
