@@ -1,9 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Arrendatario } from './entities/Arrendatario.entity';
-import {
-  CreateArrendatarioDto,
-  UpdateArrendatarioDto,
-} from 'src/modules/Arrendatario/dtos/arrendatarios.dto';
+import { CreateArrendatarioDto } from 'src/modules/Arrendatario/dtos/CreateArrendatario.dto';
+import { UpdateArrendatarioDto } from 'src/modules/Arrendatario/dtos/UpdateArrendatario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,11 +12,11 @@ export class ArrendatarioService {
     private arrRepository: Repository<Arrendatario>,
   ) {}
 
-  async getArr(): Promise<Arrendatario[]> {
+  async findAll() {
     return await this.arrRepository.find();
   }
 
-  async createArr(createArrendatarioDto: CreateArrendatarioDto) {
+  async create(createArrendatarioDto: CreateArrendatarioDto) {
     const arrFound = await this.arrRepository.find({
       where: {
         document: createArrendatarioDto.document,
@@ -33,7 +31,7 @@ export class ArrendatarioService {
     return await this.arrRepository.save(newArrendatario);
   }
 
-  async getArrById(id: string) {
+  async findById(id: string) {
     const arrFound = await this.arrRepository.find({
       where: {
         id,
@@ -47,7 +45,7 @@ export class ArrendatarioService {
     return arrFound;
   }
 
-  async getArrByEmail(email: string) {
+  async findByEmail(email: string) {
     const arrFound = await this.arrRepository.find({
       where: {
         email,
@@ -61,7 +59,7 @@ export class ArrendatarioService {
     return arrFound;
   }
 
-  async updateArr(id: string, updateArrendatarioFields: UpdateArrendatarioDto) {
+  async update(id: string, updateArrendatarioFields: UpdateArrendatarioDto) {
     const result = await this.arrRepository.update(
       { id },
       updateArrendatarioFields,
@@ -74,7 +72,7 @@ export class ArrendatarioService {
     return result;
   }
 
-  async deleteArr(id: string) {
+  async delete(id: string) {
     const result = await this.arrRepository.delete({ id });
 
     if (result.affected === 0) {
