@@ -6,40 +6,44 @@ import {
   Post,
   Body,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { AdminService } from './Admin.service';
-import { AdminEntity } from './entities/Admin.entity';
 import { CreateAdminDto } from './dtos/CreateAdmin.dto';
+import { UpdateAdminDto } from './dtos/UpdateAdmin.dto';
 
 @Controller('admin')
 export class AdminController {
   constructor(private AdminService: AdminService) {}
 
   @Get()
-  async findAll(@Query('email') email: string): Promise<AdminEntity[]> {
-    const admins: AdminEntity[] = email
+  async findAll(@Query('email') email: string) {
+    const admins = email
       ? await this.AdminService.findByEmail(email)
       : await this.AdminService.findAll();
     return admins;
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<AdminEntity> {
-    const admin: AdminEntity = await this.AdminService.findById(parseInt(id));
-    return admin;
+  async findById(@Param('id') id: string) {
+    return await this.AdminService.findById(id);
   }
 
   @Post()
-  async create(@Body() CreateAdminDto: CreateAdminDto): Promise<AdminEntity> {
-    const newAdmin: AdminEntity = await this.AdminService.create(
-      CreateAdminDto,
-    );
-    return newAdmin;
+  async create(@Body() CreateAdminFields: CreateAdminDto) {
+    return await this.AdminService.create(CreateAdminFields);
+  }
+
+  @Patch(':id')
+  async updateAdmin(
+    @Param('id') id: string,
+    @Body() updateAdminFields: UpdateAdminDto,
+  ) {
+    return await this.AdminService.update(id, updateAdminFields);
   }
 
   @Delete(':id')
-  async deleted(@Param('id') id: string): Promise<AdminEntity> {
-    const deletedAdmin = await this.AdminService.deleted(parseInt(id));
-    return deletedAdmin;
+  async delete(@Param('id') id: string) {
+    return await this.AdminService.delete(id);
   }
 }

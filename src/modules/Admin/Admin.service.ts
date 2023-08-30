@@ -1,69 +1,81 @@
-import { Injectable } from '@nestjs/common';
-import { AdminEntity } from './entities/Admin.entity';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Admin } from './entities/Admin.entity';
 import { CreateAdminDto } from './dtos/CreateAdmin.dto';
+import { UpdateAdminDto } from './dtos/UpdateAdmin.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AdminService {
-  stock: AdminEntity[];
-  constructor() {
-    this.stock = [
-      {
-        id: 1,
-        email: 'pepito@email.com',
-        password: 'ad2Fdscaavbr',
+  constructor(
+    @InjectRepository(Admin)
+    private adminRepository: Repository<Admin>,
+  ) {}
+
+  async findAll() {
+    return await this.adminRepository.find();
+  }
+
+  async findById(id: string) {
+    const adminFound = await this.adminRepository.find({
+      where: {
+        id,
       },
-      {
-        id: 2,
-        email: 'juan@email.com',
-        password: '235452ld1',
+    });
+
+    if (!adminFound) {
+      return new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return adminFound;
+  }
+
+  async findByEmail(email: string) {
+    const adminFound = await this.adminRepository.find({
+      where: {
+        email,
       },
-      {
-        id: 3,
-        email: 'carloso@email.com',
-        password: 'carlos1234',
+    });
+
+    if (!adminFound) {
+      return new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return adminFound;
+  }
+
+  async create(CreateAdminDto: CreateAdminDto) {
+    const arrFound = await this.adminRepository.find({
+      where: {
+        email: CreateAdminDto.email,
       },
-    ];
+    });
+
+    if (arrFound.length) {
+      return new HttpException('Email already exists', HttpStatus.CONFLICT);
+    }
+
+    const newArrendatario = this.adminRepository.create(CreateAdminDto);
+    return await this.adminRepository.save(newArrendatario);
   }
 
-  async findAll(): Promise<AdminEntity[]> {
-    return this.stock;
+  async update(id: string, updateAdminFields: UpdateAdminDto) {
+    const result = await this.adminRepository.update({ id }, updateAdminFields);
+
+    if (result.affected === 0) {
+      return new HttpException('Admin not found', HttpStatus.NOT_FOUND);
+    }
+
+    return result;
   }
 
-  async findById(id: number): Promise<AdminEntity> {
-    return this.stock.find((admin: AdminEntity) => admin.id === id);
-  }
+  async delete(id: string) {
+    const result = await this.adminRepository.delete({ id });
 
-  async findByEmail(email: string): Promise<AdminEntity[]> {
-    return [].concat(
-      this.stock.find((admin: AdminEntity) => admin.email === email),
-    );
-  }
+    if (result.affected === 0) {
+      return new HttpException('Arrendatario not found', HttpStatus.NOT_FOUND);
+    }
 
-  async create(CreateAdminDto: CreateAdminDto): Promise<AdminEntity> {
-    const { email, password } = CreateAdminDto;
-
-    const newAdmin: AdminEntity = {
-      id: this.stock.length + 1,
-      email,
-      password,
-    };
-
-    this.stock.push(newAdmin);
-
-    return newAdmin;
-  }
-
-  async deleted(id: number): Promise<AdminEntity> {
-    const admin: AdminEntity = this.stock.find(
-      (admin: AdminEntity) => admin.id === id,
-    );
-
-    const index: number = this.stock.findIndex(
-      (admin: AdminEntity) => admin.id === id,
-    );
-
-    this.stock.splice(index, 1);
-
-    return admin;
+    return result;
   }
 }

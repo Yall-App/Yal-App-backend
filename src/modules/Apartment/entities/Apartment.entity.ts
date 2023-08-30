@@ -1,13 +1,19 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Admin {
+export class Apartment {
   @PrimaryGeneratedColumn()
   id: string;
 
   @Column()
-  email: string;
+  condominio: string;
 
   @Column()
-  password: string;
+  tower: string;
+
+  @Column()
+  floor: string;
+
+  @Column()
+  number: string;
 }
