@@ -1,5 +1,13 @@
-export class CoPropietarioEntity {
-  id: number;
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
+export class CoPropietario {
+  @PrimaryGeneratedColumn()
+  id: string;
+
+  @Column()
   name: string;
-  apartment: number;
+
+  @Column()
+  apartment: string;
 }
