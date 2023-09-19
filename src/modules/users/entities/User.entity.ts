@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class CoPropietario {
+export class User {
   @PrimaryGeneratedColumn()
   id: string;
 
@@ -10,4 +10,16 @@ export class CoPropietario {
 
   @Column()
   apartment: string;
+
+  @Column()
+  document: number;
+
+  @Column()
+  email: string;
+
+  @Column()
+  phoneNumber: number;
+
+  @Column()
+  password: string;
 }
