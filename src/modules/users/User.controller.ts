@@ -6,18 +6,23 @@ import {
   Body,
   Patch,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './User.service';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
+import { UserRol } from './entities/User.entity';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  async findAll() {
-    return await this.usersService.findAll();
+  async findAll(@Query('rol') rol: UserRol) {
+    const result = rol
+      ? await this.usersService.findByRol(rol)
+      : await this.usersService.findAll();
+    return result;
   }
 
   @Get(':id')
