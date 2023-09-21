@@ -1,5 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum UserRol {
+  ADMIN = 'ADMIN',
+  ARRENDATARIO = 'ARRENDATARIO',
+  CO_PROPIETARIO = 'CO_PROPIETARIO',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+}
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -22,4 +29,7 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  rol: UserRol;
 }
