@@ -4,6 +4,7 @@ import { CoPropietarioModule } from './modules/Co-propietario/Co-propietario.mod
 import { AdminModule } from './modules/Admin/Admin.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApartmentModule } from './modules/Apartment/Apartment.module';
+import { UsersModule } from './modules/users/User.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 const { BD_PASSWORD, BD_PORT, BD_USERNAME, BD_NAME, BD_HOST } = process.env;
@@ -24,6 +25,7 @@ const { BD_PASSWORD, BD_PORT, BD_USERNAME, BD_NAME, BD_HOST } = process.env;
     CoPropietarioModule,
     ApartmentModule,
     AdminModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
